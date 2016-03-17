@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="css/shop.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/shop.js"></script>
+ 
+<meta charset=utf-8 />
+<title>Shop Demo</title>
+</head>
+<body ng-controller="MyController">
+<h2 class="header text-center">Shop</h2>
+
+<!--  Form to add product -->
+<form name="myForm" class="form-inline text-center" role="form" >
+  <div class="form-group">
+    <label for="name">Product Name:</label>
+    <input type="text" name="name" class="form-control" ng-model="newProduct.name"  ng-maxlength="15" required/>
+    <span ng-show="!myForm.name.$valid && myForm.name.$touched "> Name Required!</span> 
+  </div>
+  <div class="form-group">
+    <label for="Price">Price:</label>
+    <input type="number" name="price" class="form-control" ng-model="newProduct.price" min="0" required/> 
+  </div>
+  <input type="button" class="btn btn-primary btn-outline" value="Add" ng-click="addProduct(myForm.$valid)" ng-disabled="myForm.$invalid"/>
+</form>
+  
+<!--  List of products in the shop -->
+<div class="col-md-6 ">
+  <h3 class="sub-header">Product{{plural(products)}} in the shop </h3>
+  <div class="table-responsive">
+    <table  class="table table-striped">
+      <!--  header -->
+      <thead>
+        <tr>
+          <th class="col-md-1">#</th>
+          <th class="col-md-3">Name</th>
+          <th class="col-md-3">Price</th>
+          <th class="col-md-1">Selected</th>
+        </tr>
+      </thead>
+      <!--  body product list -->
+      <tbody>
+        <tr ng-repeat="product in products">
+          <td class="col-md-1">{{$index}}</td>
+          <td class="col-md-3">{{product.name}}</td>
+          <td class="col-md-3">{{product.price}}</td>
+          <td class="col-md-1">
+            <input type="checkbox" class="checkbox" ng-model="product.selected"> 
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--  List of products selected-->
+<div class="col-md-6">
+  <h3 class="sub-header">Product{{plural(products)}} selected</h3>
+  <div class="table-responsive">
+    <table  class="table table-striped">
+      <!--  header -->
+      <thead>
+        <tr>
+          <th class="col-md-1">#</th>
+          <th class="col-md-3">Name</th>
+          <th class="col-md-3">Price</th>
+        </tr>
+      </thead>
+      <!--  body product list -->
+      <tbody>
+        <tr ng-repeat="product in selection" >
+          <td class="col-md-1">{{$index}}</td>
+          <td class="col-md-3">{{product.name}}</td>
+          <td class="col-md-3">{{product.price}}</td>   
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
